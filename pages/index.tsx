@@ -5,10 +5,12 @@ import styles from "./index.module.css";
 export default function Home() {
   const [thing, setThing] = useState("");
   const [result, setResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
 
   async function onSubmit(event) {
     event.preventDefault();
     try {
+      setIsLoading(true)
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
@@ -18,6 +20,7 @@ export default function Home() {
       });
 
       const data = await response.json();
+      setIsLoading(false)
       if (response.status !== 200) {
         throw (
           data.error ||
@@ -53,10 +56,14 @@ export default function Home() {
           />
           <input type="submit" value="Draw a Rainbow" />
         </form>
-        <div
-          className={styles.result}
-          dangerouslySetInnerHTML={{ __html: result }}
-        />
+        {
+          isLoading ? 'Loading...' : (
+            <div
+              className={styles.result}
+              dangerouslySetInnerHTML={{ __html: result }}
+            />
+          )
+        }
       </main>
     </div>
   );
