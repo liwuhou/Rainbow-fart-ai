@@ -40,7 +40,7 @@ export default function Home() {
     <div>
       <Head>
         <title>AI Rainbow Fart</title>
-        <link rel="icon" href="/dog.png" />
+        <link rel="icon" href="/rainbow.png" />
       </Head>
 
       <main className={styles.main}>
